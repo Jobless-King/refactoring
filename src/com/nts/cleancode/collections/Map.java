@@ -1,6 +1,6 @@
 package com.nts.cleancode.collections;
 
-public class Map extends AbstractCollection {
+public class Map  {
 	private static int INITIAL_CAPACITY = 10;
 	protected Object[] keys = new Object[INITIAL_CAPACITY];
 	protected Object[] values = new Object[INITIAL_CAPACITY];
@@ -87,4 +87,11 @@ public class Map extends AbstractCollection {
 	public void setReadOnly(boolean b) {
 		readOnly = b;
 	}
+
+	/* 상속받던 addAll 메소드를 내리고 상속관계를 제거했다.  */
+	public void addAll(Map m) {
+		for (int i=0; i<m.size(); i++)
+			add(m.keys[i], m.values[i]);
+	}
+
 }

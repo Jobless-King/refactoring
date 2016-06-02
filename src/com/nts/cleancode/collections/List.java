@@ -1,7 +1,6 @@
 package com.nts.cleancode.collections;
 
 public class List extends AbstractCollection{ /* 문제제기 : 필요없는 추상클래스를 제거 하려 한다. 해결방법 : 상위 클래스와의 의존성을 제거*/
-	private Object[] elements = new Object[10];
 	private int size = 0;
 	private boolean readOnly;
 
@@ -27,7 +26,7 @@ public class List extends AbstractCollection{ /* 문제제기 : 필요없는 추
 		Object[] newElements =
             new Object[elements.length + 10];
 		for (int i = 0; i < size; i++)
-            newElements[i] = elements[i];
+            newElements[i] = get(i);
 		elements = newElements;
 	}
 
@@ -37,7 +36,7 @@ public class List extends AbstractCollection{ /* 문제제기 : 필요없는 추
 
 	public boolean contains(Object element) {
 		for (int i=0; i<size; i++)
-			if (elements[i].equals(element))
+			if (get(i).equals(element))
 				return true;
 		return false;
 	}
@@ -51,23 +50,19 @@ public class List extends AbstractCollection{ /* 문제제기 : 필요없는 추
 			return false;
 		else 	
 			for (int i = 0; i < size; i++)
-				if (elements[i].equals(element)) {
+				if (get(i).equals(element)) {
 					elements[i] = null;
 					Object[] newElements = new Object[size - 1];
 					int k = 0;
 					for (int j = 0; j < size; j++) {
-						if (elements[j] != null)
-							newElements[k++] = elements[j];
+						if (get(j) != null)
+							newElements[k++] = get(j);
 					}
 					size--;
 					elements = newElements;
 					return true;
 				}
 		return false;
-	}
-	
-	public Object get(int i) {
-		return elements[i];
 	}
 
 	public int capacity() {

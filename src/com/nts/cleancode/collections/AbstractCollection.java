@@ -1,6 +1,7 @@
 package com.nts.cleancode.collections;
 
-public abstract class AbstractCollection  {/*문제제기 : interface를 사용하는 부분이 해당 클래스 밖에 없다 . 해결 : 인터페이스를 삭제하고 추상 메소드를 내부에 선언*/
+public abstract class AbstractCollection  {
+	protected Object[] elements = new Object[10];/*문제제기 : interface를 사용하는 부분이 해당 클래스 밖에 없다 . 해결 : 인터페이스를 삭제하고 추상 메소드를 내부에 선언*/
 
 	/*collection interface의 값을 가지고 옮*/
 	abstract  protected boolean isEmpty();
@@ -9,30 +10,24 @@ public abstract class AbstractCollection  {/*문제제기 : interface를 사용�
 	abstract  protected boolean contains(Object element);
 	abstract  protected int size();
 
+	/*문제제기 : 비슷한 코드가 반복되어 묶어서 코드의 중복을 방지한다.  해결 : 내부 구조를 맞추고 상위 AbstractCollection 객체로 선언 받게 했다.*/
+	/*문제제기 : 비슷한 코드가 반복되어 묶어서 코드의 중복을 방지한다.  해결 : 선형구조인 List와 set와 다른 메소드를 호출하는 map instance를 바꾼다.*/
 
-	public void addAll(AbstractCollection c) {
-		if (c instanceof Set) {
-			Set s = (Set)c;
-			for (int i=0; i < s.size(); i++) {
-				if (!contains(s.getElementAt(i))) {
-					add(s.getElementAt(i));
-				}
-			}
+	public void addAll(AbstractCollection collection) { /* 변수명을 의미 있게 변경 */
+		/* 같은 역할을 하는 함수 get으로 통일 */
 
-		} else if (c instanceof List) {
-			List l = (List)c;
-			for (int i=0; i < l.size(); i++) {
-				if (!contains(l.get(i))) {
-					add(l.get(i));
-				}
+		for (int i = 0; i < collection.size(); i++) {
+			if (!contains(collection.get(i))) { /* 같은 역할을 하는 함수 get으로 통일 */
+				add(collection.get(i));
 			}
-		}else if (c instanceof Map) {
-			Map m = (Map)c;
-			for (int i=0; i<m.size(); i++)
-				add(m.keys[i], m.values[i]);
 		}
+
 	}
 
 	public void add(Object key, Object value) {
+	}
+
+	public Object get(int i) {
+		return elements[i];
 	}
 }

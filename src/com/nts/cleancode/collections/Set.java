@@ -59,7 +59,7 @@ public class Set extends AbstractCollection{/* 문제제기 : 필요없는 추�
 		return false;
 	}
 
-	public Object getElementAt(int index) {
+	public Object get(int index) {
 		return elements[index];
 	}
 
