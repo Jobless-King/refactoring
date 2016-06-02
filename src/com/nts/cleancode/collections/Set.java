@@ -1,6 +1,6 @@
 package com.nts.cleancode.collections;
 
-public class Set extends AbstractSet {
+public class Set extends AbstractCollection{/* 문제제기 : 필요없는 추상클래스를 제거 하려 한다. 해결방법 : 상위 클래스와의 의존성을 제거*/
 	private static int INITIAL_CAPACITY = 10;
 	private Object[] elements = new Object[INITIAL_CAPACITY];
 	private int size = 0;
@@ -11,7 +11,9 @@ public class Set extends AbstractSet {
 	}
 
 	public void add(Object element) {
-		if (!readOnly) {
+		if (!readOnly){
+
+
 			int newSize = size + 1;
 			if (newSize > elements.length) {
 				Object[] newElements =
